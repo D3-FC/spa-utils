@@ -70,14 +70,14 @@ export class LaravelApi implements ApiContract {
           error: data.error,
           description: data.message,
           previous: exception,
-          data: data._data
+          data: data.data
         })
       }
 
       if (status === 404) {
         throw new NotFoundError({
           previous: exception,
-          data: data._data
+          data: data.data
         })
       }
 
@@ -95,15 +95,14 @@ export class LaravelApi implements ApiContract {
 
       throw exception
     }
-    // TODO: write tests
-    if (response && response._data && response._data._data) {
-      const data = response._data._data
-      if (Array.isArray(data)) {
-        return data.map(item => objectPropsToCamelCase(item))
-      }
-      return objectPropsToCamelCase(response._data._data)
+
+    const responseData = response && response.data && response.data.data ? response.data.data : response && response.data
+
+    if (Array.isArray(responseData)) {
+      return responseData.map(item => this.objectPropsToCamelCase(item))
     }
-    return objectPropsToCamelCase(response._data)
+
+    return this.objectPropsToCamelCase(responseData)
   }
 
   isValidationError (exception: any) {
@@ -117,5 +116,12 @@ export class LaravelApi implements ApiContract {
 
   private isApiException (error: ApiProxyError) {
     return !!error.response
+  }
+
+  private objectPropsToCamelCase (data: any) {
+    if (data && typeof data === 'object') {
+      return objectPropsToCamelCase(data)
+    }
+    return data
   }
 }
