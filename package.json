@@ -1,7 +1,10 @@
 {
-  "name": "entity-helpers",
-  "version": "0.1.0",
-  "private": true,
+  "name": "spa-utlis",
+  "version": "0.0.2",
+  "private": false,
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -9,6 +12,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "clone": "^2.1.2",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
@@ -31,6 +35,7 @@
     "eslint-plugin-vue": "^5.0.0",
     "ts-jest": "^23.0.0",
     "typescript": "^3.4.3",
+    "vue-book": "^0.0.19",
     "vue-template-compiler": "^2.5.21"
   }
 }
